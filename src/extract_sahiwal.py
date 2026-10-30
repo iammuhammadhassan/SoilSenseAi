@@ -22,6 +22,12 @@ print("Geometry valid:", sahiwal.geometry.is_valid.all())
 print("Area (square degrees):", sahiwal.geometry.area.iloc[0])
 print("Geographic bounds:", sahiwal.total_bounds)
 
+sahiwal_metric = sahiwal.to_crs("EPSG:32643")
+
+area_km2 = sahiwal_metric.geometry.area.iloc[0] / 1_000_000
+
+print("Area (square kilometres):", round(area_km2, 2))
+
 sahiwal.to_file(output_file, driver="GeoJSON")
 
 print("\nSahiwal boundary saved to:", output_file)
